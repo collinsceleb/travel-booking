@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 export class CreateFlightBookingsRequest {
   @IsString()
   @IsNotEmpty()
@@ -25,6 +25,9 @@ export class CreateFlightBookingsRequest {
   @IsString()
   @IsNotEmpty()
   source: string;
+
+  @IsPositive()
+  cost: number;
 
   @IsString()
   @IsNotEmpty()

@@ -19,6 +19,9 @@ export class FlightBookings extends AbstractDocument {
   @Prop({ type: Number })
   numberOfPassenger: number;
 
+  @Prop({ type: Number})
+  cost: number
+
   @Prop({
     type: String,
     enum: ['One way', 'Round Trip', 'Multi-city'],

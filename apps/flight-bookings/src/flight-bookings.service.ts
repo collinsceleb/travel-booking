@@ -11,7 +11,10 @@ export class FlightBookingsService {
     private readonly flightBookingsRepository: FlightBookingsRepository,
     @Inject(BILLING_SERVICE) private billingClient: ClientProxy,
   ) {}
-  async createFlightBookings(request: CreateFlightBookingsRequest) {
+  async createFlightBookings(
+    request: CreateFlightBookingsRequest,
+    authentication: string,
+  ) {
     const session = await this.flightBookingsRepository.startTransaction();
     try {
       const order = await this.flightBookingsRepository.create(request, {
@@ -20,6 +23,7 @@ export class FlightBookingsService {
       await lastValueFrom(
         this.billingClient.emit('flight_booking_created', {
           request,
+          Authentication: authentication,
         }),
       );
       await session.commitTransaction();

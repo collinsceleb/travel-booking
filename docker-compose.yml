@@ -19,6 +19,26 @@ services:
       - /usr/src/app/node_modules
     ports:
       - 3000:3000
+  hotel-reservations:
+    build:
+      context: .
+      dockerfile: ./apps/hotel-reservations/Dockerfile
+      target: development
+    command: yarn start:dev hotel-reservations
+    env_file:
+      - ./apps/hotel-reservations/.env
+    depends_on:
+      - mongodb-primary
+      - mongodb-secondary
+      - mongodb-arbiter
+      - rabbitmq
+      - auth
+      - billing
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3002:3002
   billing:
     build:
       context: .
